@@ -30,11 +30,13 @@ function renderTask(task) {
     
   </span>
   `;
-  // target the .task-label and .due-date spans 
   const taskLabelEl = li.querySelector('.task-label');
   const dueDateEl = li.querySelector('.due-date');
   const completedEl = li.querySelector('.completed');
-  // fill them in with the appropriate content from the task object
+
+  // 🚧 Task 2: add Event Listener to toggle the completed status here
+  // __________
+
   taskLabelEl.textContent = task.label;
   dueDateEl.textContent = task.dueDate;
   completedEl.innerHTML = `<i class="far ${task.complete ? 'fa-check-square' : 'fa-square'} text-4xl text-green-300 cursor-pointer"></i>`;
@@ -77,3 +79,5 @@ function toggleComplete(task) {
   renderTask(task);
   return task;
 }
+
+// 🚧 Task 1: add Event Listener/Handler for handling the New Task form submission here
