@@ -59,13 +59,13 @@
 
 ### Today's Changes
 
-- `handleNewSongSubmit(event)`
+- Handle clicks on the Songs in the sidebar playlist by loading the song we clicked on into the player
+  - we'll need to attach an event listener to each list item in the sidebar.
+  - when one of them is clicked, we'll invoke `loadSongIntoPlayer` and pass in the appropriate `song` as an argument.
+- Handle the New Song form submission - `handleNewSongSubmit(event)`
   - we'll need to prevent the default behavior.
   - we'll then need to attach an event listener to the newSong form.
   - when the form is submitted, we'll pull the form data out of the form, use it to build a new `song` object and pass it to `addSongToPlaylist`.
-- `handleChooseSong(song)`
-  - we'll need to attach an event listener to each list item in the sidebar.
-  - when one of them is clicked, we'll invoke `loadSongIntoPlayer` and pass in the appropriate `song` as an argument.
 
 ## Todo List API
 
