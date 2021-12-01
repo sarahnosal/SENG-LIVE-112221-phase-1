@@ -72,14 +72,15 @@ function log(obj) {
 // window.setTimeout(callback, 2000);
 
 
-// let counter = 10;
-// const interval = window.setInterval(() => {
-//   console.log(counter);
-//   if(counter === 0) {
-//     window.clearInterval(interval);
-//   }
-//   counter--; 
-// }, 1000);
+let counter = 10;
+const interval = window.setInterval(() => {
+  console.log(counter);
+  if(counter === 0) {
+    window.clearInterval(timerinterval);
+  }
+  counter--; 
+}, 1000);
+console.log('timerInterval', timerInterval);
 
 
 // ✅ Scope
@@ -122,6 +123,8 @@ function log(obj) {
 */
 
 // CODE HERE
+let currentSong = 'Sweet Dreams'
+let songDuration = 216;
 
 // ✅ Defining Functions
 
@@ -133,6 +136,13 @@ function log(obj) {
 
 // CODE HERE
 
+function formatDuration(duration) {
+  const seconds = duration % 60; // duration - minutes *60
+  const minutes = Math.floor(duration / 60) % 60;
+  const hours = Math.floor(duration / 3600);
+  return `${hours ? (hours + ':') : ' '}${minutes}:${seconds}`
+}
+
 // uncomment the below to test it out
 // formatDuration(216) // should return '3:36'
 
@@ -141,11 +151,12 @@ function log(obj) {
 3. Create a function called `playSong` that will take a song as an argument and set `currentSong` to the argument passed.
 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 
 
-// CODE HERE
+function playSong(song) {
+  currentSong = song;
+}
 
 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 🚧 
 */
-
 console.log("------------------------");
 console.log("⬇️ Break Out Activities ⬇️");
 console.log("🚨 Comment Out Lecture Code Above Before Starting 🚨");
@@ -165,12 +176,12 @@ let timeSpent = 0;
 
 // CODE HERE
 function startTimer(seconds) {
-  interval = setInterval(() => {
+  interval = window.setInterval(() => {
     timeSpent++;
     seconds--;
     console.log(`${seconds} seconds remaining`)
     if (seconds === 0) {
-      clearInterval(interval);
+      window.clearInterval(interval);
       console.log('Timer expired!')
     }
   }, 1000)
@@ -181,6 +192,6 @@ function startTimer(seconds) {
 
 // CODE HERE
 function stopTimer() {
-  clearInterval(interval);
+  window.clearInterval(interval);
   return `Time Spent on Task: ${timeSpent} seconds`
 }
