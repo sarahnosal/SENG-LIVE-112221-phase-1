@@ -84,8 +84,8 @@ function toggleComplete(task) {
 function handleNewTaskSubmit(event) {
   event.preventDefault();
   const label = event.target.labelInput.value;
-  const dueDate = new Date(event.target.dueDateInput.value);
-  addTask(todoList, label, dueDate);
+  const dueDate = event.target.dueDateInput.value;
+  addTask(label, dueDate);
   event.target.reset();
 }
 
