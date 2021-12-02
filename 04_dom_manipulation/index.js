@@ -72,43 +72,43 @@ function copy(obj) {
 // ✅ Searching for DOM elements
 
 function getSidebarElement() {
-
+  return document.getElementById('sidebar')
 }
 
 console.log('getSidebarElement', getSidebarElement())
 
 function getPlaylistElement() {
-  
+  return document.querySelector('#playlist')
 }
 
 console.log('getPlaylistElement', getPlaylistElement())
 
 function getMainElement() {
-  
+  return document.getElementById('main')
 }
 
 console.log('getMainElement', getMainElement())
 
 function getSongNameElement() {
-  
+  return document.getElementById('song-name')
 }
 
 console.log('getSongNameElement', getSongNameElement())
 
 function getArtistElement() {
-  
+  return document.getElementById('artist')
 }
 
 console.log('getArtistElement', getArtistElement())
 
 function getPlayCountElement() {
-  
+  return document.getElementById('play-count')
 }
 
 console.log('getPlayCountElement', getPlayCountElement())
 
 function getPlayerElement() {
-  
+  return document.getElementById('player')
 }
 
 console.log('getPlayerElement', getPlayerElement())
@@ -128,18 +128,41 @@ function renderSong(song) {
   return li;
 }
 
+// function renderSong(song) {
+//   const li = document.createElement('li');
+//   li.className = "flex justify-between p-2 pr-4"
+//   li.innerHTML = `
+//   <div>
+//     <span class="song font-semibold"></span>
+//     <span class="artist"></span>
+//   </div>
+//   <div class="duration text-gray-400"></div>`
+//   const songSpan = li.querySelector('.song');
+//   const artistSpan = li.querySelector('.artist');
+//   const durationEl = li.querySelector('.duration')
+//   songSpan.textContent = song.name;
+//   artistSpan.textContent = song.artist;
+//   durationEl.textContent = formatDuration(song.duration);
+//   song.element = li;
+//   return li;
+// }
 
 function loadPlaylistToSidebar() {
+  const target = getPlaylistElement()
+  playlist.forEach(song => {target.append(renderSong(song));
+  })
   
 }
 
 // // 👟👟👟 uncomment the line below to test
 
-// loadPlaylistToSidebar();
+loadPlaylistToSidebar();
 
 function addSongToPlaylist(playlist, song) {
   playlist.push(song);
   // Update the DOM with the new song in the sidebar
+  const target = getPlaylistElement();
+  target.append(renderSong(song));
   return song;
 }
 
@@ -162,6 +185,7 @@ function removeSongFromPlaylist(playlist, youtubeLink) {
   const foundSongIndex = playlist.findIndex(song => song.youtubeLink === youtubeLink)
   if (foundSongIndex !== -1) {
     const songToRemove = playlist.splice(foundSongIndex, 1)[0];
+    songToRemove.element.remove()
     // Remove the song from playlist in the sidebar
     return songToRemove;
   } else {
@@ -186,7 +210,7 @@ function extractVideoID(url) {
   } else {
     alert("Could not extract video ID.");
   }
-}
+} 
 
 // update the main section of the DOM with information
 // using the following helper functions defined above:
@@ -196,10 +220,10 @@ function extractVideoID(url) {
 // getPlayerElement()
 // Take care **NOT** to put the youtubeLink from the song directly into the src attribute for the iframe. We want it to be an embed version of the link and we want to make sure we're extracting the VideoID using the function defined above
 function loadSongIntoPlayer(song) {
-  getSongNameElement()
-  getArtistElement()
-  getPlayCountElement()
-  getPlayerElement()
+  getSongNameElement().innerText = song.name;
+  getArtistElement().innerText = song.artist;
+  getPlayCountElement().innerText = song.playCount === 1 ? '1 play' : `${song.playCount} plays`;
+  getPlayerElement().src = `https://www.youtube.com/embed/${extractVideoID(song.youtubeLink)}`
   //`https://www.youtube.com/embed/${extractVideoID(song.youtubeLink)}`;
 }
 
@@ -208,7 +232,7 @@ function loadSongIntoPlayer(song) {
 // // 👟👟👟 uncomment the lines below to test
 
 
-// loadSongIntoPlayer(playlist[0]);
+loadSongIntoPlayer(playlist[0]);
 // loadSongIntoPlayer(playlist[1]);
 // loadSongIntoPlayer(playlist[2]);
 // loadSongIntoPlayer(playlist[3]);
@@ -222,7 +246,7 @@ function songsByArtist(playlist, artist) {
   const target = getPlaylistElement();
   target.innerHTML = '';
   // how do we replace the songs in the sidebar with only the ones matching the artist passed as an argument?
-  
+  playlist.filter(song => song.artist === artist).forEach(song => target.append(renderSong(song)))
 }
 
 
